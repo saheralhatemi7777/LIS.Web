@@ -1,0 +1,107 @@
+﻿@model IEnumerable<مشروع_ادار_المختبرات.DTOS.DTOTestsType>
+
+@{
+    ViewData["Title"] = "قائمة أنواع التحاليل";
+}
+
+<div class="container mt-5" style="direction: rtl;">
+
+    <!-- العنوان + زر إضافة -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-primary fw-bold">
+            <i class="bi bi-flask me-2"></i> قائمة أنواع التحاليل
+        </h2>
+        <a asp-controller="TestsType" asp-action="Create"
+           class="btn btn-success shadow px-4 py-2 rounded-3">
+            <i class="bi bi-plus-circle"></i> إضافة نوع تحليل
+        </a>
+    </div>
+    <div class="mt-4 text-end">
+        <a asp-controller="Users" asp-action="MainScreen" class="btn btn-secondary px-4 py-2 rounded-3">
+            <i class="bi bi-box-arrow-left"></i> خروج
+        </a>
+    </div>
+    &nbsp;
+    <!-- نموذج البحث -->
+    <form asp-action="Index" method="get" class="mb-4">
+        <div class="input-group">
+            <input type="text" name="name" class="form-control"
+                   placeholder="ابحث باسم نوع التحليل"
+                   value="@Context.Request.Query["name"]" />
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-search"></i> بحث
+            </button>
+        </div>
+    </form>
+
+    <!-- جدول عرض البيانات -->
+    <div class="table-responsive shadow-sm border rounded">
+        <table class="table table-hover align-middle text-center" style="font-size:small">
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>الاسم</th>
+                    <th>العينات المطلوبة</th>
+                    <th>القيم الطبيعية</th>
+                    <th>Category Name</th>
+                    <th>اسم الفئة</th>
+                    <th>السعر</th>
+                    <th>العمليات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model == null || !Model.Any())
+                {
+                    <tr>
+                        <td colspan="9" class="text-muted py-4">
+                            <i class="bi bi-info-circle"></i> لا توجد بيانات لعرضها حالياً
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.TestId</td>
+                            <td>@item.TestNameEn</td>
+                            <td>@item.TestNameAr</td>
+                            <td>@item.SampleType</td>
+                            <td>@item.NormalRange</td>
+                            <td>@item.CategoryNameEn</td>
+                            <td>@item.CategoryNameAr</td>
+                            <td>@item.Testprice</td>
+                            <td>
+                              <div class="d-flex gap-2">
+                               <!-- زر تعديل -->
+                               <a asp-action="Edit" asp-controller="TestsType" 
+                                  asp-route-id="@item.TestId" 
+                                  class="btn btn-sm btn-outline-primary">
+                                   <i class="bi bi-pencil-square"></i> تعديل
+                               </a>
+                       
+                               <!-- زر حذف -->
+                               <form asp-action="Delete" 
+                                     asp-route-id="@item.TestId" 
+                                     method="post" class="d-inline"
+                               onsubmit="return confirm('هل أنت متأكد من حذف هذا التحليل؟');">
+                               @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-sm btn-outline-danger">
+                 <i class="bi bi-trash-fill"></i> حذف
+            </button>
+        </form>
+    </div>
+</td>
+
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- زر الخروج -->
+    
+
+</div>

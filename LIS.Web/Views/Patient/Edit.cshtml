@@ -1,0 +1,73 @@
+﻿@model مشروع_ادار_المختبرات.DTOS.DTOPatients
+@{
+    ViewData["Title"] = "تعديل بيانات المريض";
+}
+
+<div class="container mt-4" dir="rtl" style="text-align: right;">
+    <h3 class="mb-4">
+        <i class="bi bi-pencil-square ms-2"></i> تعديل بيانات المريض
+    </h3>
+
+    <form asp-action="Edit" method="post">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="PatientID" />
+
+        <div class="mb-3">
+            <label asp-for="FullName" class="form-label">الاسم الكامل</label>
+            <input asp-for="FullName" class="form-control" />
+            <span asp-validation-for="FullName" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="BirthDate" class="form-label">تاريخ الميلاد</label>
+            <input asp-for="BirthDate" type="date" class="form-control" />
+            <span asp-validation-for="BirthDate" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">الجنس</label>
+            <div>
+                <div class="form-check form-check-inline">
+                    <input asp-for="Gender" class="form-check-input" type="radio" value="true" 
+                           checked="@Model.Gender" />
+                    <label class="form-check-label">ذكر</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input asp-for="Gender" class="form-check-input" type="radio" value="false" 
+                           checked="@(Model.Gender == false)" />
+                    <label class="form-check-label">أنثى</label>
+                </div>
+            </div>
+            <span asp-validation-for="Gender" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="phoneNumber" class="form-label">رقم الهاتف</label>
+            <input asp-for="phoneNumber" class="form-control" />
+            <span asp-validation-for="phoneNumber" class="text-danger"></span>
+        </div>
+
+         <div class="mb-3">
+            <label style="display" asp-for="Password" class="form-label">كلمة المرور</label>
+            <input asp-for="Password" class="form-control" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Address" class="form-label">العنوان</label>
+            <input asp-for="Address" class="form-control" />
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+
+       
+
+        <button type="submit" class="btn btn-primary">
+            <i class="bi bi-save me-1"></i> حفظ التعديلات
+        </button>
+        <a asp-action="Index" class="btn btn-secondary ms-2">إلغاء</a>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

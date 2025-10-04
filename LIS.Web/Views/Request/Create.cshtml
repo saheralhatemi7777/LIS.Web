@@ -1,0 +1,34 @@
+﻿@model مشروع_ادار_المختبرات.DTOS.DTORecuests
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>اضافة طلب تحليل</h1>
+
+
+<h2 class="text-center mb-4" dir="rtl">إضافة طلب تحليل</h2>
+     <div asp-validation-summary="All" style="color:red"></div>
+<form asp-action="Create" method="post" class="border p-4 rounded shadow-sm bg-light" dir="rtl" style="text-align: right;">
+    <div class="form-group mb-3">
+        <label asp-for="Notes" class="form-label" style="float: right;">ملاحظات اضافية</label>
+        <input asp-for="Notes" class="form-control text-end" />
+        <span asp-validation-for="Notes" class="text-danger"></span>
+    </div>
+     <div class="form-group mb-3">
+        <label asp-for="Status" class="form-label" style="float: right;">الغرض</label>
+        <input asp-for="Status" class="form-control text-end" value="طلب تحليل" readonly/>
+        <span asp-validation-for="Status" class="text-danger"></span>
+    </div>
+
+    <div class="text-center" dir="ltr">
+        <button type="submit" class="btn btn-primary">التالي</button>
+        <a asp-controller="Patient" asp-action="Index" class="btn btn-secondary">رجوع</a>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+

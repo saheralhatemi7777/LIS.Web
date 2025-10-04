@@ -1,0 +1,92 @@
+﻿@model IEnumerable<مشروع_ادار_المختبرات.DTOS.RequestViewDto>
+
+@{
+    ViewData["Title"] = "قائمة عرض جميع الطلبات قيد التحليل";
+}
+
+<div class="container mt-5" style="direction: rtl;">
+
+    <!-- العنوان + زر خروج -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-primary fw-bold">
+            <i class="bi bi-flask me-2"></i>قائمة عرض جميع الطلبات قيد التحليل
+        </h2>
+        <a asp-controller="MainScreens" asp-action="Index" class="btn btn-secondary px-4 py-2 rounded-3">
+            <i class="bi bi-box-arrow-left"></i> خروج
+        </a>
+    </div>
+
+    <!-- نموذج البحث -->
+    <form asp-action="Index" method="get" class="mb-4">
+        <div class="input-group">
+            <input type="text" name="name" class="form-control"
+                   placeholder="ابحث باسم المريض"
+                   value="@Context.Request.Query["name"]" />
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-search"></i> بحث
+            </button>
+        </div>
+    </form>
+
+    <!-- جدول عرض البيانات -->
+    <div class="table-responsive shadow-sm border rounded">
+        <table class="table table-hover align-middle text-center" style="font-size:small">
+            <thead class="table-dark">
+                <tr>
+                    <th>رقم الحجز</th>
+                    <th>رقم الطلب</th>
+                    <th>اسم المريض</th>
+                    <th>الحالة</th>
+                    <th>عدد التحاليل</th>
+                    <th style="width:30%">التحاليل</th>
+                    <th>تاريخ إنشاء الطلب</th>
+                    <th>العمليات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model == null || !Model.Any())
+                {
+                    <tr>
+                        <td colspan="7" class="text-muted py-4">
+                            <i class="bi bi-info-circle"></i> لا توجد بيانات لعرضها حالياً
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var item in Model.OrderByDescending(r => r.CreatedAt))
+                    {
+                        <tr>
+                            <td>@item.RequestTestID</td>
+                            <td>@item.RequestID</td>
+                            <td>@(string.IsNullOrEmpty(item.PatientName) ? "-" : item.PatientName)</td>
+                            <td>@(string.IsNullOrEmpty(item.Status) ? "-" : item.Status)</td>
+                            <td>@(item.Tests != null ? item.Tests.Count() : 0)</td>
+                            <td style="width:30%">
+                                @if(item.Tests != null && item.Tests.Any())
+                                {
+                                    @string.Join(", ", item.Tests.Select(t => t.Name))
+                                }
+                                else
+                                {
+                                    <text>-</text>
+                                }
+                            </td>
+                            <td>@(item.CreatedAt != null ? item.CreatedAt.ToString("yyyy-MM-dd HH:mm") : "-")</td>
+                            <td>
+                                <div class="d-flex justify-content-center gap-2">
+                                    <a  asp-action="AddTestResults" asp-controller="TestResults" asp-route-id="@item.RequestID"
+                                            class="btn btn-sm btn-outline-success d-flex align-items-center justify-content-center"
+                                            style="width: 120px; height: 35px; font-size: 13px;">
+                                        <i class="bi bi-clipboard-plus me-1"></i> ادخال النتائج 
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

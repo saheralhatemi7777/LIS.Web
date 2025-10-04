@@ -1,0 +1,57 @@
+﻿@model مشروع_ادار_المختبرات.DTOS.DTOEditUsers
+@{
+    ViewData["Title"] = "تعديل بيانات المستخدم";
+ }
+<partial name="_Notvcation" />
+<div class="container py-4">
+    <h2 class="text-primary fw-bold mb-4">
+        <i class="bi bi-pencil-square me-2"></i> تعديل بيانات المستخدم
+    </h2>
+     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <form asp-action="Edit" method="post" class="row g-3 shadow-sm p-4 rounded border">
+        <input type="hidden" asp-for="UserID" />
+        <div class="col-md-6">
+            <label asp-for="FullName" class="form-label">الاسم الكامل</label>
+            <input asp-for="FullName" class="form-control" />
+            <span asp-validation-for="FullName" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="Email" class="form-label">البريد الإلكتروني</label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+         <div class="col-md-6">
+            <label asp-for="Password" class="form-label">كلمه المرور</label>
+            <input asp-for="Password" class="form-control" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="col-md-6">
+            <label asp-for="RoleId" class="form-label">الرتبة</label>
+            <select asp-for="RoleId" asp-items="ViewBag.PatientsList" class="form-select">
+                
+            </select>
+            <span asp-validation-for="RoleId" class="text-danger"></span>
+        </div>
+        <div class="col-md-6">
+            <label asp-for="IsActive" class="form-label">صلاحيات بكل النظام</label>
+            <select asp-for="IsActive" class="form-select">
+                <option value="true" selected="@Model.IsActive">نعم</option>
+                <option value="false" selected="@(!Model.IsActive)">لا</option>
+            </select>
+            <span asp-validation-for="IsActive" class="text-danger"></span>
+        </div>
+
+        <div class="col-12 text-end">
+            <button type="submit" class="btn btn-primary px-4">
+                <i class="bi bi-save-fill me-1"></i> حفظ التعديلات
+            </button>
+            <a asp-action="Index" class="btn btn-secondary ms-2">رجوع</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

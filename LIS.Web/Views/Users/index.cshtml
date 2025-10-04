@@ -1,0 +1,86 @@
+﻿@model IEnumerable<مشروع_ادار_المختبرات.DTOS.DTOUsers>
+
+<partial name="_Notvcation" />
+
+<div class="container py-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-primary fw-bold fs-3">
+            <i class="bi bi-people-fill me-2"></i> قائمة المستخدمين
+        </h2>
+        <div class="d-flex gap-2">
+            <a asp-controller="Users" asp-action="Create" class="btn btn-success shadow-sm px-4 py-2 d-flex align-items-center gap-2">
+                <i class="bi bi-person-plus-fill fs-5"></i> إضافة مستخدم
+            </a>
+            
+        </div>
+    </div>
+
+    <form asp-controller="Users" asp-action="Index" method="get" class="input-group mb-4 shadow-sm rounded">
+        <input type="text" name="searchTerm" class="form-control" placeholder="ابحث بالاسم أو الرتبة"
+               value="@Context.Request.Query["searchTerm"]" aria-label="بحث" />
+        <button type="submit" class="btn btn-primary d-flex align-items-center gap-1">
+            <i class="bi bi-search"></i> بحث
+        </button>
+    </form>
+
+    <div class="table-responsive shadow-sm rounded border">
+        <table class="table table-hover align-middle mb-0 text-center" style="direction: rtl; text-align: right;">
+            <thead class="table-primary text-primary">
+                <tr>
+                    <th>رقم المستخدم</th>
+                    <th>الاسم</th>
+                    <th>الإيميل</th>
+                    <th>الرتبة</th>
+                    <th>الصلاحيات</th>
+                    <th style="width: 80px;">الباسورد</th>
+                    <th>العمليات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="7" class="text-muted">لا توجد بيانات لعرضها.</td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var user in Model)
+                    {
+                        <tr>
+                            <td>@user.UserID</td>
+                            <td class="fw-semibold">@user.FullName</td>
+                            <td>@user.Email</td>
+                            <td>@user.RoleName</td>
+                            <td>
+                                @if (user.IsActive)
+                                {
+                                    <span class="badge bg-success">نشط</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">غير نشط</span>
+                                }
+                            </td>
+                            <td style="letter-spacing: 3px;">********</td>
+                            <td>
+                                <div class="btn-group" role="group" aria-label="عمليات المستخدم">
+                                    <a asp-controller="Users" asp-action="Edit" asp-route-id="@user.UserID" class="btn btn-sm btn-outline-primary d-flex align-items-center gap-1">
+                                        <i class="bi bi-pencil-square"></i> تعديل
+                                    </a>
+                                    <form asp-action="Delete" asp-controller="Users" asp-route-id="@user.UserID" method="post" class="d-inline" onsubmit="return confirm('هل أنت متأكد من حذف هذا المستخدم؟');">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="btn btn-sm btn-outline-danger d-flex align-items-center gap-1 ms-2">
+                                            <i class="bi bi-trash-fill"></i> حذف
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

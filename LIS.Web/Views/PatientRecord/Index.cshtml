@@ -1,0 +1,72 @@
+﻿@*@model IEnumerable<مشروع_ادار_المختبرات.Models.PatientRecord>
+
+@{
+    ViewData["Title"] = "index";
+}
+
+<h2 class="text-center text-primary mb-4 fw-bold">@ViewData["Title"]</h2>
+
+<div class="row mb-3">
+    <div class="col-md-4 offset-md-4">
+        <form asp-action="Index" method="get" class="d-flex">
+            <input type="text" name="searchPatient" value="@ViewBag.SearchPatient" class="form-control me-2" placeholder="بحث باسم المريض..." />
+            <button type="submit" class="btn btn-outline-primary">
+                <i class="bi bi-search"></i> بحث
+            </button>
+        </form>
+    </div>
+</div>
+
+<div class="mb-3 text-end">
+    <a asp-action="Create" class="btn btn-success">
+        <i class="bi bi-plus-circle"></i> إضافة نتيجة تحليل جديدة
+    </a>
+</div>
+
+<table class="table table-bordered table-hover text-center shadow-sm">
+    <thead class="table-dark">
+        <tr>
+            <th>رقم السجل</th>
+            <th>رقم المريض</th>
+            <th>اسم المريض</th>
+            <th>عنوان المريض</th>
+            <th>رقم التحليل</th>
+            <th>نتائج التحليل</th>
+            <th>تاريخ انشاء التحليل</th>
+            <th>جامع العينه</th>
+            <th>اسم المخبري</th>
+            <th>رقم هاتف المحبري</th>
+            <th width="200">إجراءات</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var result in Model)
+        {
+          <tr>  
+                <td>@result.RecordID</td>
+                <td>@result.Patient?.PatientID</td>
+                <td>@result.Patient?.FullName</td>
+                <td>@result.Patient?.Address</td>
+                <td>@result.TestResult?.ResultID</td>
+                <td>@result.TestResult?.ResultValue</td>
+                <td>@result.TestResult?.ResultDate.ToString("yyyy-MM-dd")</td>
+                <td>@result.TestResult?.ReferenceRange</td>
+                <td>@result.Users?.FullName</td>
+                <td>@result.Users?.Email</td>
+
+                <td>
+                    <a asp-action="Details" asp-route-id="@result.RecordID" class="btn btn-info btn-sm">تفاصيل</a>
+                    <a asp-action="Edit"    asp-route-id="@result.RecordID" class="btn btn-warning btn-sm">تعديل</a>
+                    <a asp-action="Delete"  asp-route-id="@result.RecordID" class="btn btn-danger btn-sm">حذف</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="mb-3 text-end">
+    <a asp-controller="Test" asp-action="index" class="btn btn-secondary">
+        <i class="bi bi-box-arrow-right"></i> خروج
+    </a>
+</div>
+*@

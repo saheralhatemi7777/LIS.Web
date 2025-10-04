@@ -1,0 +1,86 @@
+﻿@using System.Security.Claims
+
+@{
+    ViewData["Title"] = "قسم التحاليل الطبية";
+    var userRole = User.FindFirst(ClaimTypes.Role)?.Value;
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+
+<div class="container py-5">
+
+    <div class="text-center mb-5">
+        <h3 class="display-4 fw-bold text-primary">الادارة العامة للإحصائيات والتقارير</h3>
+        <p class="text-muted fs-5">مرحباً بك، اختار قسم محدد لإخراج تقرير ببيانات القسم  </p>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
+
+           
+        <!-- تقارير المرضى -->
+        <div class="col">
+            <a asp-controller="ResultsSystem" asp-action="PrintAllPatients" class="btn btn-outline-primary w-100 p-4 shadow-sm text-start d-flex align-items-center">
+                <i class="bi bi-people-fill fs-1 me-3 text-primary"></i>
+                <div>
+                    <h5 class="mb-1 fw-bold">تقارير المرضى</h5>
+                    <small class="text-muted">اخراج تقرير بكل المرضى داخل النظام</small>
+                </div>
+            </a>
+        </div>
+
+        <!-- تقارير التحاليل -->
+        <div class="col">
+            <a asp-controller="ResultsSystem" asp-action="PrintAllTest" class="btn btn-outline-info w-100 p-4 shadow-sm text-start d-flex align-items-center">
+                <i class="bi bi-file-medical-fill fs-1 me-3 text-info"></i>
+                <div>
+                    <h5 class="mb-1 fw-bold">تقارير التحاليل</h5>
+                    <small class="text-muted">اخراج تقرير بكل التحاليل داخل النظام</small>
+                </div>
+            </a>
+        </div>
+
+        <!-- تقارير فئات التحاليل -->
+        <div class="col">
+            <a asp-controller="ResultsSystem" asp-action="PrintAllCategorTest" class="btn btn-outline-warning w-100 p-4 shadow-sm text-start d-flex align-items-center">
+                <i class="bi bi-grid-3x3-gap-fill fs-1 me-3 text-warning"></i>
+                <div>
+                    <h5 class="mb-1 fw-bold">تقارير فئات التحاليل</h5>
+                    <small class="text-muted">اخراج تقرير بكل فئات التحاليل داخل النظام</small>
+                </div>
+            </a>
+        </div>
+
+        <!-- تقارير التحاليل المكتملة -->
+        <div class="col">
+            <a asp-controller="ResultsSystem" asp-action="PrintTestResults" class="btn btn-outline-success w-100 p-4 shadow-sm text-start d-flex align-items-center">
+                <i class="bi bi-check-circle-fill fs-1 me-3 text-success"></i>
+                <div>
+                    <h5 class="mb-1 fw-bold">تقارير التحاليل المكتملة</h5>
+                    <small class="text-muted">اخراج تقرير بجميع التحاليل المكتملة داخل النظام</small>
+                </div>
+            </a>
+        </div>
+
+        <!-- احصائيات النظام -->
+        <div class="col">
+            <a asp-controller="ResultsSystem" asp-action="GetAllSetteng" class="btn btn-outline-danger w-100 p-4 shadow-sm text-start d-flex align-items-center">
+                <i class="bi bi-bar-chart-fill fs-1 me-3 text-danger"></i>
+                <div>
+                    <h5 class="mb-1 fw-bold">احصائيات النظام</h5>
+                    <small class="text-muted">احصائيات بالتحاليل والمستخدمين الاكثر تفاعلاً داخل النظام</small>
+                </div>
+            </a>
+        </div>
+
+    </div>
+
+    <!-- زر الخروج أسفل الشاشة -->
+    <div class="text-center mt-5">
+        <form asp-controller="Users" asp-action="MainScreen" method="post">
+            <button type="submit" class="btn btn-outline-secondary btn-lg">
+                <i class="bi bi-box-arrow-right me-2"></i>  رجوع للقائمة الرئيسية
+            </button>
+        </form>
+    </div>
+
+</div>

@@ -1,0 +1,94 @@
+﻿@using System.Security.Claims
+
+@{
+    ViewData["Title"] = "قسم التحاليل الطبية";
+    var userRole = User.FindFirst(ClaimTypes.Role)?.Value;
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+
+<div class="container py-5 position-relative">
+
+    <!-- زر إعدادات النظام أقصى يسار الشاشة -->
+    <div class="position-absolute top-0 start-0 m-3">
+        <a asp-controller="SettingSystem" asp-action="Index" class="btn p-3 shadow bg-transparent" title="إعدادات النظام">
+            <i class="bi bi-gear-fill fs-4 text-primary"></i>
+        </a>
+    </div>
+
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold text-primary">الادارة العامة لنظام (LIS)</h1>
+        <p class="text-muted fs-5">مرحباً بك، اختر القسم الذي ترغب بالانتقال إليه</p>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-center">
+
+        <!-- إدارة المستخدمين -->
+        <div class="col">
+            <a asp-controller="Users" asp-action="Index" class="btn btn-outline-primary w-100 p-4 shadow-sm text-start d-flex align-items-center">
+                <i class="bi bi-people-fill fs-1 me-3 text-primary"></i>
+                <div>
+                    <h5 class="mb-1 fw-bold">ادارة المستخدمين</h5>
+                    <small class="text-muted">إدارة واستقبال المستخدمين الأساسيين للنظام</small>
+                </div>
+            </a>
+        </div>
+
+        <!-- قسم أنواع التحاليل -->
+        <div class="col">
+            <a asp-controller="TestsType" asp-action="Index" class="btn btn-outline-success w-100 p-4 shadow-sm text-start d-flex align-items-center">
+                <i class="bi bi-file-earmark-medical-fill fs-1 me-3 text-success"></i>
+                <div>
+                    <h5 class="mb-1 fw-bold">قسم انواع التحاليل</h5>
+                    <small class="text-muted">عرض وإدارة أنواع التحاليل</small>
+                </div>
+            </a>
+        </div>
+
+        <!-- قسم فئات التحاليل -->
+        <div class="col">
+            <a asp-controller="TestCategory" asp-action="Index" class="btn btn-outline-danger w-100 p-4 shadow-sm text-start d-flex align-items-center">
+                <i class="bi bi-clipboard-data fs-1 me-3 text-danger"></i>
+                <div>
+                    <h5 class="mb-1 fw-bold">قسم فئات التحاليل</h5>
+                    <small class="text-muted">تصنيف فئات التحليل وعرض بيانات الفئات المتوفرة</small>
+                </div>
+            </a>
+        </div>
+        <div class="col">
+            <a asp-controller="Operations" asp-action="Index" class="btn btn-outline-primary w-100 p-4 shadow-sm text-start d-flex align-items-center">
+                <i class="bi bi bi-gear fs-1 me-3 text-primary"></i>
+                <div>
+                    <h5 class="mb-1 fw-bold">ادارة العمليات داخل النظام</h5>
+                    <small class="text-muted">العمليات الرئيسية القائمه داخل النظام</small>
+                </div>
+            </a>
+        </div>
+        <!-- قسم الإحصائيات -->
+        <div class="col">
+            <a asp-controller="ResultsSystem" asp-action="Index" class="btn btn-outline-warning w-100 p-4 shadow-sm text-start d-flex align-items-center">
+                <i class="bi bi-bar-chart-fill fs-1 me-3 text-warning"></i>
+                <div>
+                    <h5 class="mb-1 fw-bold">قسم الإحصائيات</h5>
+                    <small class="text-muted">تصنيف وتوثيق الإحصائيات</small>
+                </div>
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<!-- optional: hover effect للأيقونات -->
+<style>
+    .btn-outline-primary:hover i,
+    .btn-outline-success:hover i,
+    .btn-outline-danger:hover i,
+    .btn-outline-warning:hover i {
+        transform: scale(1.15);
+        transition: transform 0.2s;
+    }
+
+    .btn:hover {
+        box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15) !important;
+    }
+</style>

@@ -1,0 +1,130 @@
+﻿@using System.Security.Claims
+
+@{
+    ViewData["Title"] = "لوحة التحكم";
+    var userRole = User.FindFirst(ClaimTypes.Role)?.Value;
+}
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] - مشروع_ادار_المختبرات</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/مشروع_ادار_المختبرات.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        body {
+            direction: rtl;
+            text-align: right;
+        }
+        /* نجعل الكونتينر الرئيسي للناب بار يمين بلا padding أو margin من الجهة اليسرى */
+        .container-fluid {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+        /* نجعل قائمة التنقل تلتصق يمين الصفحة تماما */
+        .navbar-collapse {
+            justify-content: flex-start !important; /* في rtl, flex-start يعني يمين */
+            margin-left: 0;
+            margin-right: 0;
+        }
+        .navbar-nav {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            justify-content: flex-start; /* تلتصق يمين */
+            padding-right: 10px;
+        }
+        /* زر الملف الشخصي دائري */
+        .btn-profile {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            color: white;
+            background-color: #0d6efd;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+        .btn-profile:hover {
+            background-color: #084298;
+            color: white;
+            text-decoration: none;
+        }
+        /* أزرار أخرى */
+        .btn-main {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 600;
+        }
+    </style>
+
+
+</head>
+ @Html.Raw(TempData["ErrorScript"])
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="navbar-collapse collapse">
+                    <ul class="navbar-nav flex-grow-0">
+                        <li class="nav-item">
+                            <a asp-controller="Account" asp-action="Setting" class="btn btn-profile" title="الملف الشخصي">
+                                <i class="fas fa-user"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="Home" asp-action="Index" class="btn btn-primary btn-main">
+                                <i class="fas fa-home"></i> الرئيسية
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+                                <button class="btn btn-danger btn-main" type="submit">
+                                    <i class="fas fa-sign-out-alt"></i> تسجيل الخروج
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+
+                </div>
+                
+                </div>
+               
+        </nav>
+    </header>
+    <div class="container" style="text-align: right;">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted text-center py-3">
+        <div class="container">
+            &copy; 2025 - مشروع_إدارة_المختبرات - <a asp-area="" asp-controller="Home" asp-action="Privacy">سياسة الخصوصية</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

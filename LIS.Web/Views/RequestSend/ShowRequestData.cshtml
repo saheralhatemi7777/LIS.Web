@@ -1,0 +1,59 @@
+﻿@using مشروع_ادار_المختبرات.DTOS
+@model IEnumerable<RequestTestDto>
+
+<div class="container mt-4">
+    @foreach (var request in Model)
+    {
+        <div class="card mb-4 p-3 shadow-sm">
+            <div class="d-flex align-items-start">
+
+                <!-- بيانات المريض + زر الإرسال + التحاليل على اليسار -->
+                <div class="flex-grow-1 me-4">
+                    <h5><strong>  اسم المريض :</strong> @request.PatientName</h5>
+                    <p><strong> تاريح الطلب  :</strong> @request.CreatedAt.ToString("yyyy/MM/dd HH:mm")</p>
+
+                    <a href="@Url.Action("SendRequest", "RequestSend", new { requestId = request.RequestID })" class="btn btn-primary mb-3">
+                        إرسال الطلب
+                     </a>
+                    <a href="@Url.Action("PrintQr", "RequestSend", new { name = request.PatientName })" 
+                    class="btn btn-success mb-3" target="_blank">
+                     طباعة QR
+                   </a>
+
+                    <hr />
+
+                    <h6>التحاليل</h6>
+                    <table class="table table-bordered mt-2">
+                        <thead class="table-light">
+                            <tr>
+                                <th>رقم التحليل</th>
+                                <th>اسم التحليل</th>
+                                <th>العينة</th>
+                                <th>باركود</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in request.Tests)
+                            {
+                                <tr>
+                                    <td>#</td>
+                                    <td>@item.Name</td>
+                                    <td>@item.Samples</td>
+                                    <td>
+                                        <img src="@ViewBag.BarcodePath" alt="QR Code" style="width:50px;height:50px;" />
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- الباركود على الجانب الأيمن -->
+                <div>
+                    <img src="@ViewBag.BarcodePath" alt="QR Code" style="width:200px;height:200px;" class="img-thumbnail" />
+                </div>
+
+            </div> <!-- d-flex -->
+        </div> <!-- card -->
+    }
+</div> <!-- container -->

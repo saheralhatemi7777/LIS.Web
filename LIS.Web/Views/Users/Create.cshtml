@@ -1,0 +1,59 @@
+﻿@model مشروع_ادار_المختبرات.DTOS.DTOEditUsers
+@{
+    ViewData["Title"] = "إضافة مستخدم جديد";
+}
+
+<div class="container py-4" dir="rtl" style="text-align: right;">
+    <h2 class="text-success fw-bold mb-4" dir="rtl" style="text-align: right;">
+        <i class="bi bi-person-plus-fill me-2"></i> إضافة مستخدم جديد
+    </h2>
+        <div asp-validation-summary="All" style="color:red"></div>
+
+    <form asp-action="Create" method="post" class="row g-3 shadow-sm p-4 rounded border" dir="rtl" style="text-align: right;">
+        <div class="col-md-6">
+            <label asp-for="FullName" class="form-label" style="float: right;"></label>
+            <input asp-for="FullName" class="form-control text-end" />
+            <span asp-validation-for="FullName" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="Email" class="form-label" style="float: right;"></label>
+            <input asp-for="Email" class="form-control text-end" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="Password" class="form-label" style="float: right;"></label>
+            <input asp-for="Password" type="password" class="form-control text-end" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="RoleId" class="form-label" style="float: right;"></label>
+            <select asp-for="RoleId" asp-items="ViewBag.PatientsList" class="form-select text-end">
+                
+            </select>
+            <span asp-validation-for="RoleId" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="IsActive" class="form-label" style="float: right;"></label>
+            <select asp-for="IsActive" class="form-select text-end">
+                <option value="true">نعم</option>
+                <option value="false">لا</option>
+            </select>
+            <span asp-validation-for="IsActive" class="text-danger"></span>
+        </div>
+
+        <div class="col-12 text-end" dir="ltr" style="text-align: left;">
+            <button type="submit" class="btn btn-success px-4">
+                <i class="bi bi-save-fill me-1"></i> حفظ
+            </button>
+            <a asp-action="Index" class="btn btn-secondary ms-2">رجوع</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

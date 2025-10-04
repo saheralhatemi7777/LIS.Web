@@ -1,0 +1,49 @@
+﻿@using System.Security.Claims
+
+@{
+    ViewData["Title"] = "قسم التحاليل الطبية";
+    var userRole = User.FindFirst(ClaimTypes.Role)?.Value;
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+
+    <div class="container py-5">
+
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold text-primary">قسم التحاليل الطبية</h1>
+        <p class="text-muted fs-5">مرحباً بك، اختر القسم الذي ترغب بالانتقال إليه</p>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
+
+        <div class="col">
+            <a asp-controller="RequestSend" asp-action="index" class="btn btn-outline-primary w-100 p-4 shadow-sm text-start d-flex align-items-center">
+                <i class="bi bi-droplet-fill fs-1 me-3 text-primary"></i>
+                <div>
+                    <h5 class="mb-1 fw-bold">قسم طلبات التحاليل</h5>
+                    <small class="text-muted">إدارة واستقبال الطلبات</small>
+                </div>
+            </a>
+        </div>
+
+        <div class="col">
+            <a asp-controller="UnderAnalysis" asp-action="index" class="btn btn-outline-success w-100 p-4 shadow-sm text-start d-flex align-items-center">
+                <i class="bi bi-file-earmark-check-fill fs-1 me-3 text-success"></i>
+                <div>
+                    <h5 class="mb-1 fw-bold">قسم نتائج التحاليل</h5>
+                    <small class="text-muted">عرض وإدارة نتائج التحاليل</small>
+                </div>
+            </a>
+        </div>
+
+         <div class="col">
+            <a asp-controller="Ready_made_Tests" asp-action="index" class="btn btn-outline-success w-100 p-4 shadow-sm text-start d-flex align-items-center">
+                <i class="bi bi-file-earmark-check-fill fs-1 me-3 text-success"></i>
+                <div>
+                    <h5 class="mb-1 fw-bold">قسم  التحاليل المكتمله</h5>
+                    <small class="text-muted">عرض وإدارة التحاليل المكتمله</small>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,63 @@
+﻿@model مشروع_ادار_المختبرات.DTOS.DTOEditUsers
+
+@{
+    ViewData["Title"] = "إدارة الملف الشخصي";
+ }
+
+<partial name="_Notvcation" />
+
+<div class="container py-5">
+    <div class="text-center mb-4">
+        <i class="bi bi-person-circle" style="font-size: 5rem; color: #0d6efd;"></i>
+        <h2 class="mt-2 fw-bold text-primary">إدارة الملف الشخصي</h2>
+        <p class="text-muted">تعرض هذه الصفحة بياناتك الشخصية داخل النظام.</p>
+    </div>
+
+    <div class="card shadow rounded border-0">
+        <div class="card-body">
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <label class="form-label fw-bold">الاسم الكامل</label>
+                    <input class="form-control bg-light" value="@Model.FullName" readonly />
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-bold">البريد الإلكتروني</label>
+                    <input class="form-control bg-light" value="@Model.Email" readonly />
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-bold">كلمة المرور</label>
+                    <input type="password" class="form-control bg-light" value="@Model.Password" readonly />
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-bold">الرتبة</label>
+                    <input class="form-control bg-light" value="غير محددة" readonly />
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-bold">صلاحيات النظام</label>
+                    <input class="form-control bg-light" value="@(Model.IsActive ? "نعم" : "لا")" readonly />
+                </div>
+            </div>
+
+            <div class="mt-4 text-end">
+
+                <a asp-controller="Account" asp-action="Edit" style="color:white" class="btn bg-primary px-4">
+                    <i class="bi bi-arrow-left-circle me-1"></i> تعديل البيانات
+                </a>
+
+                <a asp-controller="Home" asp-action="Index" class="btn btn-secondary px-4">
+                    <i class="bi bi-arrow-left-circle me-1"></i> رجوع
+                </a>
+
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

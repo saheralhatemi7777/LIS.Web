@@ -1,0 +1,49 @@
+﻿@model مشروع_ادار_المختبرات.DTOS.DTOSettingSystem
+@{
+    ViewData["Title"] = "إعدادات النظام";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-header text-center bg-primary text-white">
+                    <h3 class="mb-0"><i class="bi bi-gear-fill me-2"></i>إعدادات النظام</h3>
+                </div>
+
+                <div class="card-body">
+                    <!-- شعار المختبر -->
+                    <div class="text-center mb-4">
+                        @if (!string.IsNullOrEmpty(Model.Image))
+                        {
+                            <img src="@Model.Image" alt="شعار المختبر" class="img-fluid rounded" style="max-width:150px; max-height:150px;" />
+                        }
+                        else
+                        {
+                            <div class="text-muted fst-italic">لا يوجد شعار بعد</div>
+                        }
+                    </div>
+
+                    <!-- بيانات الإعدادات -->
+                    <dl class="row fs-6">
+                        <dt class="col-sm-10"><i class="bi bi-building me-2"></i>اسم المختبر: <b>@Model.Name</b></dt><br /><br />
+
+                        <dt class="col-sm-10"><i class="bi bi-telephone me-2"></i>رقم الهاتف: <b>@Model.PhoneNumber</b></dt><br /><br />
+
+                        <dt class="col-sm-10"><i class="bi bi-geo-alt me-2"></i>العنوان: <b>@Model.Addrees</b></dt><br /><br />
+
+                        <dt class="col-sm-10"><i class="bi bi-envelope me-2"></i>البريد الإلكتروني: <b>@Model.Email</b></dt><br /><br />
+
+                        <dt class="col-sm-10"><i class="bi bi-card-text me-2"></i>الوصف: <b>@Model.Descraption</b></dt><br /><br />
+                    </dl>
+                </div>
+
+                <div class="card-footer text-center">
+                    <a asp-controller="SettingSystem" asp-route-id="@Model.SettingID" asp-action="Create" class="btn btn-success me-2">
+                        <i class="bi bi-plus-lg me-1"></i> تعديل البيانات
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

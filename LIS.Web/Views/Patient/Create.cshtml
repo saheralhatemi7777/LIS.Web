@@ -1,0 +1,99 @@
+﻿@model مشروع_ادار_المختبرات.Models.Patient
+
+@{
+    ViewData["Title"] = "إضافة مريض";
+}
+
+ <div class="container mt-4" dir="rtl">
+    <div class="card shadow-lg border-0 rounded-3">
+        <div class="card-header bg-primary text-white text-center py-3">
+            <h4 class="mb-0">
+                <i class="bi bi-person-plus-fill me-2"></i> إضافة مريض جديد
+            </h4>
+        </div>
+
+        <div class="card-body bg-light">
+            <div class="mb-3 text-start">
+                <a asp-controller="Patient" asp-action="Index" 
+                   class="btn btn-outline-primary btn-sm rounded-pill px-3 shadow-sm">
+                    <i class="bi bi-people-fill me-1"></i> عرض بيانات المرضى
+                </a>
+            </div>
+
+            <div asp-validation-summary="All" class="alert alert-danger py-2" role="alert"></div>
+
+            <form asp-action="Create" method="post" class="row g-3">
+                <!-- الاسم الكامل -->
+                <div class="col-md-6">
+                    <label asp-for="FullName" class="form-label fw-bold">
+                        <i class="bi bi-person-fill me-1 text-primary"></i> الاسم الكامل
+                    </label>
+                    <input asp-for="FullName" class="form-control text-end shadow-sm" />
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+
+                <!-- تاريخ الميلاد -->
+                <div class="col-md-6">
+                    <label asp-for="BirthDate" class="form-label fw-bold">
+                        <i class="bi bi-calendar-date me-1 text-primary"></i> تاريخ الميلاد
+                    </label>
+                    <input asp-for="BirthDate" class="form-control text-end shadow-sm" type="date" />
+                    <span asp-validation-for="BirthDate" class="text-danger"></span>
+                </div>
+
+                <!-- الجنس -->
+                <div class="col-md-6">
+                    <label class="form-label fw-bold d-block">
+                        <i class="bi bi-gender-ambiguous me-1 text-primary"></i> الجنس
+                    </label>
+                    <div class="d-flex gap-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" asp-for="Gender" value="true" checked />
+                            <label class="form-check-label">ذكر</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" asp-for="Gender" value="false" />
+                            <label class="form-check-label">أنثى</label>
+                        </div>
+                    </div>
+                    <span asp-validation-for="Gender" class="text-danger"></span>
+                </div>
+
+                <!-- الهاتف -->
+                <div class="col-md-6">
+                    <label asp-for="phoneNumber" class="form-label fw-bold">
+                        <i class="bi bi-telephone-fill me-1 text-primary"></i> رقم الهاتف
+                    </label>
+                    <input asp-for="phoneNumber" class="form-control text-end shadow-sm" />
+                    <span asp-validation-for="phoneNumber" class="text-danger"></span>
+                </div>
+
+                <!-- العنوان -->
+                <div class="col-12">
+                    <label asp-for="Address" class="form-label fw-bold">
+                        <i class="bi bi-geo-alt-fill me-1 text-primary"></i> العنوان
+                    </label>
+                    <textarea asp-for="Address" class="form-control text-end shadow-sm" rows="2"></textarea>
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+
+                <input type="hidden" asp-for="SupervisorID" />
+
+                <!-- الأزرار -->
+                <div class="col-12 text-center mt-4">
+                    <button type="submit" class="btn btn-success px-4 me-2 shadow-sm">
+                        <i class="bi bi-check-circle me-1"></i> حفظ
+                    </button>
+                    <a asp-controller="Home"  asp-action="Index" class="btn btn-outline-secondary px-4 shadow-sm">
+                        <i class="bi bi-arrow-left-circle me-1"></i> رجوع
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @*عشان لا يعيد تحميل الصفحة عند كل عمليه صغيرة*@
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

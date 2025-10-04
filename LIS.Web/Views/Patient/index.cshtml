@@ -1,0 +1,127 @@
+﻿@using مشروع_ادار_المختبرات.DTOS
+@model IEnumerable<DTOPatients>
+
+@{
+    ViewData["Title"] = "إدارة المرضى";
+}
+<style>
+    .square-btn {
+    width: 120px;       /* نفس العرض */
+    height: 40px;       /* نفس الطول */
+    font-size: 0.85rem; /* حجم الخط أوضح */
+    font-weight: 600;   /* النص بخط أوضح */
+    white-space: nowrap; /* يمنع النص من النزول لسطر جديد */
+}
+
+</style>
+<div class="container mt-5" dir="rtl">
+    <!-- عنوان الصفحة وزر إضافة -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-dark fw-bold mb-0">
+            <i class="bi bi-people-fill me-2 text-primary"></i>
+            إدارة بيانات المرضى
+        </h2>
+       @* <a asp-controller="Patient" asp-action="Create" class="btn btn-primary btn-sm rounded-pill px-4 shadow-sm">
+            <i class="bi bi-plus-circle me-1"></i> إضافة مريض
+        </a>*@
+    </div>
+         <!-- زر عرض جميع الطلبات -->
+     <div class="my-3 text-dark">
+    <a asp-controller="Request" asp-action="Index">
+        <i class="bi bi-list-check me-1"></i> عرض جميع الطلبات
+    </a>
+     </div>
+
+      
+    <!-- رسائل التنبيه -->
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+            <i class="bi bi-check-circle me-1"></i> @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="إغلاق"></button>
+        </div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert">
+            <i class="bi bi-exclamation-triangle me-1"></i> @TempData["Error"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="إغلاق"></button>
+        </div>
+    }
+     
+    <!-- شريط البحث -->
+    <form asp-controller="Patient" asp-action="Index" method="get" class="mb-4">
+        <div class="input-group input-group-sm shadow-sm">
+            <input type="text" name="searchTerm" class="form-control text-end border-primary" placeholder="ابحث باسم المريض"
+                   value="@Context.Request.Query["searchTerm"]" />
+            <button class="btn btn-outline-primary" type="submit">
+                <i class="bi bi-search"></i> بحث
+            </button>
+        </div>
+    </form>
+
+    <!-- جدول المرضى -->
+    <div class="table-responsive shadow-sm rounded">
+        <table class="table table-bordered table-hover align-middle text-center mb-0" style="font-size:small">
+            <thead class="table-primary text-dark">
+                <tr>
+                    <th style="width: 5%;">#</th>
+                    <th>الاسم</th>
+                    <th>تاريخ الميلاد</th>
+                    <th>الجنس</th>
+                    <th>رقم الهاتف</th>
+                    <th>العنوان</th>
+                    <th>اسم المشرف</th>
+                    <th>كلمة المرور</th>
+                    <th style="width: 20%;">التحكم</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="9" class="text-muted text-center">لا توجد بيانات حالياً</td>
+                    </tr>
+                }
+                else
+                {
+                    @foreach (var patient in Model)
+                    {
+                        <tr>
+                            <td>@patient.PatientID</td>
+                            <td>@patient.FullName</td>
+                            <td>@patient.BirthDate.ToString("yyyy/MM/dd")</td>
+                            <td>@(patient.Gender ? "ذكر" : "أنثى")</td>
+                            <td>@patient.phoneNumber</td>
+                            <td>@patient.Address</td>
+                            <td>@patient.UserName</td>
+                            <td>@patient.Password</td>
+                            <td>
+    <div class="d-flex justify-content-center gap-2">
+
+         <!-- زر طلب تحليل -->
+        <a asp-action="SelectPatient" asp-controller="Request" asp-route-patientId="@patient.PatientID" asp-route-Name="@patient.FullName"
+           class="btn btn-sm btn-outline-success d-flex align-items-center justify-content-center"
+           style="width: 100px; height: 35px; font-size: 13px;">
+            <i class="bi bi-clipboard-plus me-1"></i> طلب تحليل
+        </a>
+
+        <!-- زر تعديل -->
+        <a asp-action="Edit" asp-route-id="@patient.PatientID"
+           class="btn btn-sm btn-outline-primary d-flex align-items-center justify-content-center"
+           style="width: 50px; height: 35px; font-size: 13px;">
+            <i class="bi bi-pencil-square me-1"></i> تعديل
+        </a>
+
+      
+
+    </div>
+</td>
+
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

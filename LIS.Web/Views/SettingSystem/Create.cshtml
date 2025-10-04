@@ -1,0 +1,78 @@
+﻿@model مشروع_ادار_المختبرات.DTOS.DTOSettingSystem
+@{
+    ViewData["Title"] = "إضافة إعدادات النظام";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-header text-center bg-success text-white">
+                    <h3 class="mb-0"><i class="bi bi-plus-lg me-2"></i>إضافة إعدادات النظام</h3>
+                </div>
+
+                <div class="card-body">
+                    <form asp-action="Create" method="post" enctype="multipart/form-data">
+                        <!-- اسم المختبر -->
+                        <div class="mb-3">
+                            <label asp-for="Name" class="form-label"><i class="bi bi-building me-1"></i>اسم المختبر</label>
+                            <input asp-for="Name" class="form-control" placeholder="أدخل اسم المختبر" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <!-- رقم الهاتف -->
+                        <div class="mb-3">
+                            <label asp-for="PhoneNumber" class="form-label"><i class="bi bi-telephone me-1"></i>رقم الهاتف</label>
+                            <input asp-for="PhoneNumber" class="form-control" placeholder="أدخل رقم الهاتف" />
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+
+                        <!-- العنوان -->
+                        <div class="mb-3">
+                            <label asp-for="Addrees" class="form-label"><i class="bi bi-geo-alt me-1"></i>العنوان</label>
+                            <input asp-for="Addrees" class="form-control" placeholder="أدخل العنوان" />
+                            <span asp-validation-for="Addrees" class="text-danger"></span>
+                        </div>
+
+                        <!-- البريد الإلكتروني -->
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label"><i class="bi bi-envelope me-1"></i>البريد الإلكتروني</label>
+                            <input asp-for="Email" class="form-control" placeholder="أدخل البريد الإلكتروني" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <!-- الوصف -->
+                        <div class="mb-3">
+                            <label asp-for="Descraption" class="form-label"><i class="bi bi-card-text me-1"></i>الوصف</label>
+                            <textarea asp-for="Descraption" class="form-control" rows="3" placeholder="أدخل وصف المختبر"></textarea>
+                            <span asp-validation-for="Descraption" class="text-danger"></span>
+                        </div>
+
+                        <!-- رفع صورة الشعار -->
+                        <!-- رفع صورة الشعار -->
+<div class="mb-3">
+    <label asp-for="ImageFile" class="form-label"><i class="bi bi-image me-1"></i>شعار المختبر</label>
+    <input asp-for="ImageFile" type="file" class="form-control" />
+    <span asp-validation-for="ImageFile" class="text-danger"></span>
+</div>
+
+
+                        <!-- أزرار الحفظ والإلغاء -->
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-success me-2">
+                                <i class="bi bi-check-lg me-1"></i>حفظ
+                            </button>
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="bi bi-x-lg me-1"></i>إلغاء
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

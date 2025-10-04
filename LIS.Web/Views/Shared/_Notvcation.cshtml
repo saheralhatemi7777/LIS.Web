@@ -1,0 +1,27 @@
+﻿<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+@{
+    ViewData["Title"] = "قائمة المستخدمين";
+}
+
+<div class="container py-4" dir="rtl" style="text-align: right;">
+    @* عرض رسائل التنبيه *@
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger text-center fw-bold">
+            @TempData["Error"]
+        </div>
+        <script type="text/javascript">
+        toastr.error('@TempData["Error"]', 'error!')
+         </script>
+    }
+    @if (TempData["Successful"] != null)
+    {
+        <div class="alert alert-success text-center fw-bold">
+            @TempData["Successful"]
+        </div>
+        <script type="text/javascript">
+            toastr.success('@TempData["Successful"]', 'Success')
+         </script>
+    }
